@@ -25,15 +25,6 @@ class _CSRFSessionAuthentication(SessionAuthentication):
         return user, None
 
 
-def _login(username, password, request):
-    user = django_auth.authenticate(request, username=username, password=password)
-    if user is None:
-        return Response(status=http_code.HTTP_403_FORBIDDEN)
-
-    django_auth.login(request, user)
-
-
-
 class MeViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateModelMixin, mixins.RetrieveModelMixin):
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
@@ -68,7 +59,11 @@ class MeViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateM
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
 
-        _login(username, password, request)
+        user = django_auth.authenticate(request, username=username, password=password)
+        if user is None:
+            return Response(status=http_code.HTTP_403_FORBIDDEN)
+
+        django_auth.login(request, user)
 
         return Response(serializer.data, status=http_code.HTTP_201_CREATED, headers=headers)
 
@@ -90,7 +85,11 @@ class LoginView(generics.GenericAPIView):
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
 
-        _login(username, password, request)
+        user = django_auth.authenticate(request, username=username, password=password)
+        if user is None:
+            return Response(status=http_code.HTTP_403_FORBIDDEN)
+
+        django_auth.login(request, user)
 
         return Response(status=http_code.HTTP_204_NO_CONTENT)
 

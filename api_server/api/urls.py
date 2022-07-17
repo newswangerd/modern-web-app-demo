@@ -16,12 +16,14 @@ v1 = [
             "get": "retrieve",
             "put": "update",
             "patch": "partial_update",
+            "delete": "destroy"
         }), name="tasks-detail"),
     path("task-lists/", views.TaskListViewset.as_view({"get": "list", "post": "create"}), name="task-lists-list"),
     path("task-lists/<str:pk>/", views.TaskListViewset.as_view({
             "get": "retrieve",
             "put": "update",
             "patch": "partial_update",
+            "delete": "destroy",
         }), name="task-lists-list"),
 ]
 

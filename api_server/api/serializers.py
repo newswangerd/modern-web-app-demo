@@ -16,6 +16,8 @@ class TaskListSerializer(serializers.ModelSerializer):
         model = models.TaskList
         fields = (
             "id",
+            "created",
+            "last_updated",
             "name",
             "description",
         )

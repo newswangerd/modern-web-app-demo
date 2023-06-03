@@ -29,7 +29,7 @@ This requires Node 16+.
 
 ```shell
 # Install NPM requirements
-cd webserver/
+cd web_client/
 npm ci
 
 # Run the UI

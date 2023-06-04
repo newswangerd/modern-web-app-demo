@@ -1,17 +1,16 @@
 import React from 'react';
 import {
-  Typography,
   Accordion,
-  AccordionSummary,
   AccordionDetails,
+  AccordionSummary,
+  Button,
+  IconButton,
   List,
   ListItem,
-  IconButton,
   TextField,
-  Button,
+  Typography,
 } from '@mui/material';
 
-import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -20,42 +19,33 @@ import { ITaskListType, ITaskType } from '../api';
 
 import { ListOfTasks } from '../components';
 
-interface IState {
-  newList: string;
-}
 
 interface IProps {
+  completeTask: (task: ITaskType) => void;
+  createList: (name: string) => void;
+  createTask: (name: string, taskList: ITaskListType) => void;
+  deleteList: (taskList: ITaskListType) => void;
+  deleteTask: (task: ITaskType) => void;
   taskLists: ITaskListType[];
   tasks: ITaskType[];
-
-  completeTask: (task: ITaskType) => void;
-  createTask: (name: string, taskList: ITaskListType) => void;
-  deleteTask: (task: ITaskType) => void;
-
-  createList: (name: string) => void;
-  deleteList: (taskList: ITaskListType) => void;
 }
 
-export class TaskList extends React.Component<IProps, IState> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      newList: '',
-    };
-  }
-
-  render() {
-    const {
+export const TaskList: React.FC<IProps> =({
+      completeTask,
+      createList,
+      createTask,
+      deleteList,
+      deleteTask,
       taskLists,
       tasks,
-      completeTask,
-      createTask,
-      deleteTask,
-      deleteList,
-    } = this.props;
+}) => {
 
-    const { newList } = this.state;
+  const [newList, setNewList] = React.useState('')
+
+  const handleCreateList = () => { 
+    createList(newList);
+    setNewList('');    
+  }
 
     return (
       <>
@@ -63,9 +53,10 @@ export class TaskList extends React.Component<IProps, IState> {
           <ListItem
             secondaryAction={
               <IconButton
-                onClick={() => this.createList(newList)}
+                onClick={() => handleCreateList()}
                 edge='end'
                 aria-label='create'
+                disabled={newList === ''}
               >
                 <AddIcon />
               </IconButton>
@@ -77,10 +68,10 @@ export class TaskList extends React.Component<IProps, IState> {
               label='New list'
               variant='standard'
               value={newList}
-              onChange={(e) => this.setState({ newList: e.target.value })}
+              onChange={(e) => setNewList(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter') {
-                  this.createList(newList);
+                if (e.key === 'Enter' && newList !== '') {
+                  handleCreateList();
                 }
               }}
             />
@@ -114,9 +105,5 @@ export class TaskList extends React.Component<IProps, IState> {
     );
   }
 
-  private createList(newList) {
-    this.setState({ newList: '' }, () => {
-      this.props.createList(newList);
-    });
-  }
-}
+
+

@@ -11,7 +11,6 @@ import {
   Button,
 } from '@mui/material';
 
-import ClearIcon from '@mui/icons-material/Clear';
 import AddIcon from '@mui/icons-material/Add';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';

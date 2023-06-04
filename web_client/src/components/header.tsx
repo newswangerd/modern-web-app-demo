@@ -1,7 +1,5 @@
 import React from 'react';
-import { Button, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-
-import MenuIcon from '@mui/icons-material/Menu';
+import { Button, AppBar, Toolbar, Typography } from '@mui/material';
 
 import { IUserType } from '../api';
 

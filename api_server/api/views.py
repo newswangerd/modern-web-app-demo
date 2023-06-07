@@ -14,7 +14,6 @@ from rest_framework.response import Response
 from rest_framework import status as http_code
 
 
-
 class _CSRFSessionAuthentication(SessionAuthentication):
     """CSRF-enforcing version of a SessionAuthentication class."""
 
@@ -28,8 +27,8 @@ class MeViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateM
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
 
-    # Disable login requrement to allow users to signup
-    permission_classes=[]
+    # Disable login requirement to allow users to signup
+    permission_classes = []
 
     def get_object(self):
         """

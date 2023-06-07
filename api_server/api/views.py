@@ -2,7 +2,6 @@ from rest_framework import viewsets, generics, mixins, views
 from api import models
 from api import serializers
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 
 from django.core.exceptions import PermissionDenied
 

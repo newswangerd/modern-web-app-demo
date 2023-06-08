@@ -28,5 +28,5 @@ v1 = [
 ]
 
 urlpatterns = [
-    path("v1/", include(v1)),
+    path("v1/", include((v1, 'api'), namespace='v1')),
 ]

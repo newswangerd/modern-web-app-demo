@@ -2,7 +2,6 @@ from rest_framework import viewsets, generics, mixins, views
 from api import models
 from api import serializers
 from django.contrib.auth import get_user_model
-from django.shortcuts import get_object_or_404
 
 from django.core.exceptions import PermissionDenied
 
@@ -13,7 +12,6 @@ from rest_framework.authentication import SessionAuthentication
 
 from rest_framework.response import Response
 from rest_framework import status as http_code
-
 
 
 class _CSRFSessionAuthentication(SessionAuthentication):
@@ -29,8 +27,8 @@ class MeViewset(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.UpdateM
     serializer_class = serializers.UserSerializer
     queryset = get_user_model().objects.all()
 
-    # Disable login requrement to allow users to signup
-    permission_classes=[]
+    # Disable login requirement to allow users to signup
+    permission_classes = []
 
     def get_object(self):
         """

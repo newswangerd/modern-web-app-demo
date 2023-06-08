@@ -1,8 +1,6 @@
-from enum import unique
 from rest_framework import serializers
 from api import models
 from django.contrib.auth import get_user_model
-from rest_framework.validators import UniqueValidator
 
 
 class TaskSerializer(serializers.ModelSerializer):
@@ -21,7 +19,7 @@ class TaskListSerializer(serializers.ModelSerializer):
             "name",
             "description",
         )
-    
+
     def create(self, data):
         request = self.context.get('request')
         print(type(request.user.pk))
